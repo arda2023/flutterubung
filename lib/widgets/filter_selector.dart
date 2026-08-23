@@ -8,7 +8,7 @@ import '../models/filter_type.dart';
 /// parent screen). Tapping a segment does nothing yet.
 ///
 /// TODO (Exercise 9): Pass a real [onSelectionChanged] callback from
-/// [TodoListScreen] that writes the new value to [activeFilterProvider].
+/// [TodoListScreen].
 class FilterSelector extends StatelessWidget {
   /// The currently active filter — drives which segment appears selected.
   final FilterType selected;
@@ -38,8 +38,7 @@ class FilterSelector extends StatelessWidget {
           ),
         ],
         selected: {selected},
-        // TODO (Exercise 10): Replace the empty callback below with one that
-        // calls ref.read(activeFilterProvider.notifier).state = newValue.
+        // TODO (Exercise 10): Implement onSelectionChanged.
         onSelectionChanged: (_) {},
       ),
     );

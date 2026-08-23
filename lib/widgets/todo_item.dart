@@ -19,7 +19,7 @@ class TodoItem extends StatelessWidget {
       // A unique key is required by Dismissible.
       key: ValueKey(todo.id),
       direction: DismissDirection.endToStart,
-      // TODO (Exercise 3): Call removeTodo(todo.id) via the provider here.
+      // TODO (Exercise 3): Implement remove action here.
       onDismissed: (_) {},
       background: Container(
         alignment: Alignment.centerRight,
@@ -30,7 +30,7 @@ class TodoItem extends StatelessWidget {
       child: ListTile(
         leading: Checkbox(
           value: todo.isDone,
-          // TODO (Exercise 4): Call toggleTodo(todo.id) via the provider here.
+          // TODO (Exercise 4): Implement toggle action here.
           onChanged: (_) {},
         ),
         title: Text(
@@ -43,7 +43,7 @@ class TodoItem extends StatelessWidget {
         trailing: IconButton(
           icon: const Icon(Icons.delete_outline),
           tooltip: 'Delete',
-          // TODO (Exercise 5): Call removeTodo(todo.id) via the provider here.
+          // TODO (Exercise 5): Implement remove action here.
           onPressed: () {},
         ),
       ),

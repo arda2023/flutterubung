@@ -9,18 +9,18 @@ class Todo {
   final String title;
   final bool isDone;
 
-  const Todo({
-    required this.id,
-    required this.title,
-    required this.isDone,
-  });
+  const Todo({required this.id, required this.title, required this.isDone});
+
+  Todo copyWith({String? id, String? title, bool? isDone}) {
+    return Todo(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      isDone: isDone ?? this.isDone,
+    );
+  }
 
   // ---------------------------------------------------------------------------
-  // TODO (Exercise 1): Add a copyWith() method so you can produce a modified
-  // copy of a Todo without mutating the original instance.
-  //
-  // Example signature:
-  //   Todo copyWith({String? id, String? title, bool? isDone}) { ... }
+  // TODO (Exercise 1): Add a copyWith() method.
   // ---------------------------------------------------------------------------
 
   @override

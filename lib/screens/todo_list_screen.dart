@@ -27,8 +27,7 @@ class TodoListScreen extends ConsumerWidget {
     // so the correct segment appears highlighted. No actual filtering yet.
     final activeFilter = ref.watch(activeFilterProvider);
 
-    // TODO (Exercise 11): Replace `todos` below with a filtered list based
-    // on `activeFilter` so the ListView only shows matching items.
+    // TODO (Exercise 11): Filter the list based on `activeFilter`.
 
     return Scaffold(
       appBar: AppBar(

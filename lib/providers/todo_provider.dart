@@ -1,6 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:uuid/uuid.dart';
 
 import '../models/todo.dart';
+
+const _uuid = Uuid();
 
 // ---------------------------------------------------------------------------
 // Hardcoded dummy data — used as the initial state so the list screen
@@ -25,22 +28,19 @@ class TodoNotifier extends Notifier<List<Todo>> {
   }
 
   /// Adds a new [Todo] with the given [title] to the list.
-  void addTodo(String title) {
-    // TODO: implement
-    // Hint: create a Todo with a unique id (e.g. DateTime.now().toString())
-    //       and append it to `state`.
+  void addTodo(String title, {isDone = false}) {
+    final newTodo = Todo(id: _uuid.v4(), title: title, isDone: false);
+    state = [...state, newTodo];
   }
 
   /// Toggles the [isDone] field of the todo identified by [id].
   void toggleTodo(String id) {
     // TODO: implement
-    // Hint: use copyWith() on the matching todo and rebuild the list.
   }
 
   /// Removes the todo identified by [id] from the list.
   void removeTodo(String id) {
     // TODO: implement
-    // Hint: filter `state` to exclude the todo with the matching id.
   }
 }
 

@@ -14,12 +14,10 @@ class AddTodoInput extends StatefulWidget {
 }
 
 class _AddTodoInputState extends State<AddTodoInput> {
-  // A TextEditingController lets you read the current value of the field.
   final TextEditingController _controller = TextEditingController();
 
   @override
   void dispose() {
-    // Always dispose controllers to avoid memory leaks.
     _controller.dispose();
     super.dispose();
   }
@@ -45,8 +43,7 @@ class _AddTodoInputState extends State<AddTodoInput> {
           ),
           const SizedBox(width: 8),
           ElevatedButton(
-            // TODO (Exercise 8): Read _controller.text, call the provider,
-            //       then clear the field with _controller.clear().
+            // TODO (Exercise 8): Implement the add action.
             onPressed: () {},
             child: const Text('Add'),
           ),
