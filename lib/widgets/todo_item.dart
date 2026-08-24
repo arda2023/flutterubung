@@ -1,4 +1,6 @@
+import 'package:dartubung/providers/todo_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/todo.dart';
 
@@ -8,13 +10,13 @@ import '../models/todo.dart';
 ///   - a delete [IconButton] on the right (tapping does nothing yet)
 ///
 /// Optionally wrapped in a [Dismissible] for swipe-to-delete (also inert).
-class TodoItem extends StatelessWidget {
+class TodoItem extends ConsumerWidget {
   final Todo todo;
 
   const TodoItem({super.key, required this.todo});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Dismissible(
       // A unique key is required by Dismissible.
       key: ValueKey(todo.id),
@@ -31,7 +33,9 @@ class TodoItem extends StatelessWidget {
         leading: Checkbox(
           value: todo.isDone,
           // TODO (Exercise 4): Implement toggle action here.
-          onChanged: (_) {},
+          onChanged: (_) {
+            ref.read(todoListProvider.notifier).toggleTodo(todo.id);
+          },
         ),
         title: Text(
           todo.title,

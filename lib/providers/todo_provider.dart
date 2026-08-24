@@ -28,19 +28,27 @@ class TodoNotifier extends Notifier<List<Todo>> {
   }
 
   /// Adds a new [Todo] with the given [title] to the list.
-  void addTodo(String title, {isDone = false}) {
+  void addTodo(String title) {
     final newTodo = Todo(id: _uuid.v4(), title: title, isDone: false);
     state = [...state, newTodo];
   }
 
   /// Toggles the [isDone] field of the todo identified by [id].
   void toggleTodo(String id) {
-    // TODO: implement
+    state = state.map((todo) {
+      if (todo.id == id) {
+        return todo.copyWith(isDone: !todo.isDone);
+      } else {
+        return todo;
+      }
+    }).toList();
   }
 
   /// Removes the todo identified by [id] from the list.
   void removeTodo(String id) {
-    // TODO: implement
+    state = state.where((todo) {
+      return todo.id != id;
+    }).toList();
   }
 }
 
