@@ -1,4 +1,6 @@
+import 'package:dartubung/providers/filter_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/filter_type.dart';
 
@@ -9,14 +11,14 @@ import '../models/filter_type.dart';
 ///
 /// TODO (Exercise 9): Pass a real [onSelectionChanged] callback from
 /// [TodoListScreen].
-class FilterSelector extends StatelessWidget {
+class FilterSelector extends ConsumerWidget {
   /// The currently active filter — drives which segment appears selected.
   final FilterType selected;
 
   const FilterSelector({super.key, required this.selected});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
       child: SegmentedButton<FilterType>(
@@ -39,7 +41,9 @@ class FilterSelector extends StatelessWidget {
         ],
         selected: {selected},
         // TODO (Exercise 10): Implement onSelectionChanged.
-        onSelectionChanged: (_) {},
+        onSelectionChanged: (_) {
+          ref.read(activeFilterProvider.notifier).state = Set<FilterType>;
+        },
       ),
     );
   }
