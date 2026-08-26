@@ -1,4 +1,6 @@
+import 'package:dartubung/providers/todo_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// A row containing a [TextField] and an "Add" [ElevatedButton].
 ///
@@ -6,14 +8,14 @@ import 'package:flutter/material.dart';
 ///
 /// TODO (Exercise 6): Accept the text from the field and call
 /// addTodo(text) via the provider when the button is pressed.
-class AddTodoInput extends StatefulWidget {
+class AddTodoInput extends ConsumerStatefulWidget {
   const AddTodoInput({super.key});
 
   @override
-  State<AddTodoInput> createState() => _AddTodoInputState();
+  ConsumerState<AddTodoInput> createState() => _AddTodoInputState();
 }
 
-class _AddTodoInputState extends State<AddTodoInput> {
+class _AddTodoInputState extends ConsumerState<AddTodoInput> {
   final TextEditingController _controller = TextEditingController();
 
   @override
@@ -34,8 +36,10 @@ class _AddTodoInputState extends State<AddTodoInput> {
               decoration: const InputDecoration(
                 hintText: 'New task…',
                 border: OutlineInputBorder(),
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 10,
+                ),
               ),
               // TODO (Exercise 7): Also trigger the add action on keyboard submit.
               onSubmitted: (_) {},
@@ -44,7 +48,10 @@ class _AddTodoInputState extends State<AddTodoInput> {
           const SizedBox(width: 8),
           ElevatedButton(
             // TODO (Exercise 8): Implement the add action.
-            onPressed: () {},
+            onPressed: () {
+              ref.read(todoListProvider.notifier).addTodo(_controller.text);
+              _controller.clear();
+            },
             child: const Text('Add'),
           ),
         ],
