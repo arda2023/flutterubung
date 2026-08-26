@@ -22,7 +22,9 @@ class TodoItem extends ConsumerWidget {
       key: ValueKey(todo.id),
       direction: DismissDirection.endToStart,
       // TODO (Exercise 3): Implement remove action here.
-      onDismissed: (_) {},
+      onDismissed: (_) {
+        ref.read(todoListProvider.notifier).removeTodo(todo.id);
+      },
       background: Container(
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 20),
@@ -48,7 +50,9 @@ class TodoItem extends ConsumerWidget {
           icon: const Icon(Icons.delete_outline),
           tooltip: 'Delete',
           // TODO (Exercise 5): Implement remove action here.
-          onPressed: () {},
+          onPressed: () {
+            ref.read(todoListProvider.notifier).removeTodo(todo.id);
+          },
         ),
       ),
     );

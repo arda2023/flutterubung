@@ -41,8 +41,8 @@ class FilterSelector extends ConsumerWidget {
         ],
         selected: {selected},
         // TODO (Exercise 10): Implement onSelectionChanged.
-        onSelectionChanged: (_) {
-          ref.read(activeFilterProvider.notifier).state = Set<FilterType>;
+        onSelectionChanged: (newSelection) {
+          ref.read(activeFilterProvider.notifier).state = newSelection.first;
         },
       ),
     );
