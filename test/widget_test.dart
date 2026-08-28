@@ -1,21 +1,20 @@
 import 'package:dartubung/main.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('TodoListScreen shows the dummy todos', (
+  testWidgets('HabitListScreen shows the dummy habits', (
     WidgetTester tester,
   ) async {
     // Build our app and trigger a frame. ProviderScope is required because
     // the app reads Riverpod providers.
     await tester.pumpWidget(
-      const ProviderScope(child: TaskFlowApp()),
+      const ProviderScope(child: HabitLoopApp()),
     );
 
-    // Verify that the dummy todos are displayed.
-    expect(find.text('Buy groceries'), findsOneWidget);
-    expect(find.text('Finish Flutter exercise'), findsOneWidget);
-    expect(find.text('Walk the dog'), findsOneWidget);
+    // Verify that the dummy habits are displayed.
+    expect(find.text('Drink water'), findsOneWidget);
+    expect(find.text('Read 10 pages'), findsOneWidget);
+    expect(find.text('Meditate 5 min'), findsOneWidget);
   });
 }

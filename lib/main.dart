@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'screens/todo_list_screen.dart';
+import 'screens/habit_list_screen.dart';
 
 void main() {
-  // ProviderScope is required by Riverpod — it must wrap the entire widget
-  // tree so that every widget below can read providers.
-  runApp(const ProviderScope(child: TaskFlowApp()));
+  runApp(
+    const ProviderScope(
+      child: HabitLoopApp(),
+    ),
+  );
 }
 
-/// Root widget of the TaskFlow application.
-class TaskFlowApp extends StatelessWidget {
-  const TaskFlowApp({super.key});
+class HabitLoopApp extends StatelessWidget {
+  const HabitLoopApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TaskFlow',
+      title: 'HabitLoop',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+        colorSchemeSeed: Colors.teal,
         useMaterial3: true,
       ),
-      home: const TodoListScreen(),
+      home: const HabitListScreen(),
     );
   }
 }
