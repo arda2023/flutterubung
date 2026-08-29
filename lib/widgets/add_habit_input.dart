@@ -1,13 +1,18 @@
+import 'package:dartubung/providers/category_provider.dart';
+import 'package:dartubung/providers/habit_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// A simple input area for adding a new habit.
-///
-/// Contains a text field for the habit name, a text field for the category
-/// (simplified — see note below), and an "Add" button.
-///
-/// All interactive elements are INERT — the button's onPressed is empty.
-class AddHabitInput extends StatelessWidget {
+class AddHabitInput extends ConsumerStatefulWidget {
   const AddHabitInput({super.key});
+
+  @override
+  ConsumerState<AddHabitInput> createState() => _AddHabitInputState();
+}
+
+class _AddHabitInputState extends ConsumerState<AddHabitInput> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController categoryController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +20,10 @@ class AddHabitInput extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
-          // Habit name input
           Expanded(
             flex: 2,
             child: TextField(
+              controller: nameController,
               decoration: const InputDecoration(
                 hintText: 'Habit name',
                 border: OutlineInputBorder(),
@@ -32,23 +37,10 @@ class AddHabitInput extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8),
-          // Category input
-          //
-          // NOTE / SIMPLIFICATION:
-          // Ideally this should be a Dropdown that shows existing Category
-          // objects (from categoryListProvider) and lets the user pick one,
-          // so you get a valid categoryId. Right now it's just a plain
-          // TextField where the user types a category name — which doesn't
-          // directly give you a categoryId.
-          //
-          // When you implement this for real, you'll want to either:
-          // a) Replace this with a DropdownButton<String> populated from
-          //    the category list, where each item's value is the category id.
-          // b) Or look up the typed name in the category list to find the
-          //    matching id.
           Expanded(
             flex: 1,
             child: TextField(
+              controller: categoryController,
               decoration: const InputDecoration(
                 hintText: 'Category',
                 border: OutlineInputBorder(),
@@ -60,15 +52,18 @@ class AddHabitInput extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8),
-          // Add button
           FilledButton(
             onPressed: () {
-              // TODO: call addHabit(name, categoryId) on the HabitNotifier
-              // via ref. You'll need:
-              // 1. The habit name from the first TextField
-              // 2. A valid categoryId (from the second TextField or a dropdown)
-              // 3. Access to ref (convert to ConsumerWidget or pass callback)
-              // 4. After adding, clear the text fields
+              String nameC = nameController.text;
+
+              final cat = ref.read(categoryListProvider);
+              final matchingCat = cat.firstWhere(
+                (element) => element.name == nameC,
+              );
+
+              ref
+                  .read(habitListProvider.notifier)
+                  .addHabit(nameC, matchingCat.id);
             },
             child: const Text('Add'),
           ),

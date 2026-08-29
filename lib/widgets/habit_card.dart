@@ -1,38 +1,35 @@
+import 'package:dartubung/providers/category_provider.dart';
+import 'package:dartubung/providers/habit_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/habit.dart';
 
-/// Displays a single habit as a card.
-///
-/// Shows the habit name, streak, a checkbox for completion, a delete button,
-/// and a placeholder for the category name.
-///
-/// All interactive elements (checkbox, delete button) are INERT — their
-/// callbacks are empty with TODO comments for you to wire up.
-class HabitCard extends StatelessWidget {
+class HabitCard extends ConsumerWidget {
   final Habit habit;
 
   const HabitCard({super.key, required this.habit});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final categories = ref.watch(categoryListProvider);
+    final matchingCategory = categories.firstWhere(
+      (category) => category.id == habit.categoryId,
+    );
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Row(
           children: [
-            // Checkbox to mark habit as completed today
             Checkbox(
               value: habit.isCompletedToday,
               onChanged: (value) {
-                // TODO: call toggleCompletedToday(habit.id) on the
-                // HabitNotifier via ref. This widget is currently a
-                // StatelessWidget — you may need to convert it to a
-                // ConsumerWidget or pass a callback from the parent.
+                ref
+                    .read(habitListProvider.notifier)
+                    .toggleCompletedToday(habit.id);
               },
             ),
-            // Habit name and category
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,27 +55,18 @@ class HabitCard extends StatelessWidget {
                   // card widget (which would need ref access), or in the parent
                   // screen which already has ref, passing the resolved name down?
                   Text(
-                    'Category: TODO',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey[600],
-                    ),
+                    matchingCategory.name,
+                    style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                   ),
                 ],
               ),
             ),
-            // Streak display
-            Text(
-              '🔥 ${habit.streak}',
-              style: const TextStyle(fontSize: 16),
-            ),
+            Text('🔥 ${habit.streak}', style: const TextStyle(fontSize: 16)),
             const SizedBox(width: 8),
-            // Delete button
             IconButton(
               icon: const Icon(Icons.delete_outline, color: Colors.redAccent),
               onPressed: () {
-                // TODO: call removeHabit(habit.id) on the HabitNotifier via ref.
-                // Same consideration as the checkbox — you need ref access here.
+                ref.read(habitListProvider.notifier).removeHabit(habit.id);
               },
             ),
           ],

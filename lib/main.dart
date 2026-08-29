@@ -4,11 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'screens/habit_list_screen.dart';
 
 void main() {
-  runApp(
-    const ProviderScope(
-      child: HabitLoopApp(),
-    ),
-  );
+  runApp(const ProviderScope(child: HabitLoopApp()));
 }
 
 class HabitLoopApp extends StatelessWidget {
@@ -19,10 +15,7 @@ class HabitLoopApp extends StatelessWidget {
     return MaterialApp(
       title: 'HabitLoop',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorSchemeSeed: Colors.teal,
-        useMaterial3: true,
-      ),
+      theme: ThemeData(colorSchemeSeed: Colors.teal, useMaterial3: true),
       home: const HabitListScreen(),
     );
   }

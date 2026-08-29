@@ -7,10 +7,6 @@ import '../providers/sort_option_provider.dart';
 import '../widgets/add_habit_input.dart';
 import '../widgets/habit_card.dart';
 
-/// The main screen of HabitLoop.
-///
-/// Displays a sort option selector at the top, followed by the list of
-/// habits, and an input area at the bottom for adding new habits.
 class HabitListScreen extends ConsumerWidget {
   const HabitListScreen({super.key});
 
@@ -34,12 +30,9 @@ class HabitListScreen extends ConsumerWidget {
     // Hint: List has a .sort() method that takes a comparator function.
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('HabitLoop'),
-      ),
+      appBar: AppBar(title: const Text('HabitLoop')),
       body: Column(
         children: [
-          // Sort option selector
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(
@@ -54,21 +47,12 @@ class HabitListScreen extends ConsumerWidget {
                       child: Text(option.name),
                     );
                   }).toList(),
-                  onChanged: (value) {
-                    // TODO: update sortOptionProvider with the new value.
-                    //
-                    // Hint: use ref.read(sortOptionProvider.notifier).state = value
-                    // to update the StateProvider.
-                    //
-                    // Even after you wire this up, nothing will visibly change
-                    // until you also implement the sorting logic above.
-                  },
+                  onChanged: (value) {},
                 ),
               ],
             ),
           ),
           const Divider(height: 1),
-          // Habit list
           Expanded(
             child: ListView.builder(
               itemCount: habits.length,
@@ -78,7 +62,6 @@ class HabitListScreen extends ConsumerWidget {
             ),
           ),
           const Divider(height: 1),
-          // Add habit input
           const AddHabitInput(),
         ],
       ),
