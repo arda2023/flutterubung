@@ -1,3 +1,5 @@
+import 'package:dartubung/models/habit.dart';
+import 'package:dartubung/providers/category_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,6 +16,26 @@ class HabitListScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final habits = ref.watch(habitListProvider);
     final currentSort = ref.watch(sortOptionProvider);
+    final categories = ref.watch(categoryListProvider);
+
+    final sortedHabits = List<Habit>.from(habits);
+
+    sortedHabits.sort((a, b) {
+      switch (currentSort) {
+        case SortOption.name:
+          return a.name.compareTo(b.name);
+        case SortOption.streak:
+          return a.streak.compareTo(b.streak);
+        case SortOption.category:
+          final categoryA = categories.firstWhere(
+            (category) => category.id == a.categoryId,
+          );
+          final categoryB = categories.firstWhere(
+            (category) => category.id == b.categoryId,
+          );
+          return categoryA.name.compareTo(categoryB.name);
+      }
+    });
 
     // TODO: Apply sorting to the habits list based on currentSort.
     //
