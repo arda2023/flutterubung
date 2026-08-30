@@ -47,7 +47,9 @@ class HabitListScreen extends ConsumerWidget {
                       child: Text(option.name),
                     );
                   }).toList(),
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    ref.read(sortOptionProvider.notifier).state = value!;
+                  },
                 ),
               ],
             ),
